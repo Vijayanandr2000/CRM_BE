@@ -22,6 +22,7 @@ exports.verifyToken = (req, res, next) => {
 
             req.userId = decode.id;
             req.isAdmin = user.userType == contant.userTypes.admin ? true : false;
+            req.userType = user.userType;
 
             next();
         })

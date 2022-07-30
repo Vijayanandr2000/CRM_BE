@@ -3,20 +3,20 @@ const constant = require('../utils/constant');
 
 const userSchema = new mongoose.Schema({
     name:{
-        type: 'string',
+        type: String,
         required: true,
     },
     userId: {
-        type: 'string',
+        type: String,
         required: true,
         unique: true
     },
     password: {
-        type: 'string',
+        type: String,
         required: true,
     },
     email: {
-        type: 'string',
+        type: String,
         required: true,
         lowercase: true,
         unique: true,
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         default: Date.now()
     },
     userType: {
-        type: 'string',
+        type: String,
         required: true,
         default: constant.userTypes.customer,
         enum: [
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
         ]
     },
     userStatus: {
-        type: 'string',
+        type: String,
         required: true,
         default: constant.userStatus.approved,
         enum: [
@@ -50,6 +50,14 @@ const userSchema = new mongoose.Schema({
             constant.userStatus.rejected,
             constant.userStatus.pending,
         ]
+    },
+    ticketCreated: {
+        type: [mongoose.SchemaTypes.ObjectId], 
+        ref: "tickets"
+    },
+    ticketAssigneed: {
+        type: [mongoose.SchemaTypes.ObjectId], 
+        ref: "tickets"
     }
 })
 
