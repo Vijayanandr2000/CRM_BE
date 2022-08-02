@@ -1,6 +1,7 @@
 const Ticket = require("../model/ticket.model");
 const User = require("../model/user.model");
 const constant = require("../utils/constant");
+const sendNotification = require("../utils/notificationClient");
 
 exports.createTicket = async(req,res) => {
     try {
@@ -43,6 +44,22 @@ exports.createTicket = async(req,res) => {
                     engineer.ticketAssigneed.push(ticketCreated._id);
                     await engineer.save();
                 }
+
+                // subject, content, recepients, requester -> FOR CUSTOMER EMAIl
+                sendNotification(
+                    `Ticket created In CRM` , 
+                    `Your Ticket Created successfully...! with tracking id ${ticketCreated._id}`,
+                    `${customer.email}`, 
+                    "CRM APP"
+                );
+
+                // FOR ASSIGNEE EMAIL
+                sendNotification(
+                    `New Ticket Assigned` , 
+                    `New Ticket Assigned to you...! with tracking id ${ticketCreated._id} with priority ${ticketCreated.ticketPriority}`,
+                    `${engineer.email}`, 
+                    "CRM APP"
+                );
 
                 return res.status(201).send(ticketCreated);
             }

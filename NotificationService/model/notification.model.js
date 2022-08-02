@@ -7,7 +7,7 @@ const notificationSchema = new mongoose.Schema({
         required: true,
     },
     recepientEmail: {
-        type: email, 
+        type: String, 
         required: true
     },
     content: {
@@ -18,7 +18,7 @@ const notificationSchema = new mongoose.Schema({
         type: String,
     },
     status: {
-        type: boolean,
+        type: Boolean,
         required: true,
         default: false
     },

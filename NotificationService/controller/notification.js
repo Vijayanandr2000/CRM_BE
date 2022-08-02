@@ -36,7 +36,7 @@ exports.createNotificationRequest = async(req, res) => {
 exports.getNotificationDetail = async(req, res) => {
     try {
 
-        let trackingId = req.params.trackingId
+        let trackingId = req.params.id
 
         const notification = await Notification.findOne({_id: trackingId});
 
