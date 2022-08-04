@@ -129,6 +129,31 @@ exports.updateTicket = async (req, res) => {
         ticket.assignee = req.body.assignee != undefined ? req.body.assignee : ticket.assignee;
 
         const updatedTicket = await ticket.save();
+        
+        const customer = await User.findOne({ 
+            "userId":  updatedTicket.reporter 
+        });
+
+        const engineer = await User.findOne({ 
+            "userId":  updatedTicket.assignee 
+        });
+
+        // subject, content, recepients, requester -> FOR CUSTOMER EMAIl
+        sendNotification(
+            `Ticket Updated In CRM` , 
+            `Your Ticket Updated successfully...! with tracking id ${updatedTicket._id}`,
+            `${customer.email}`, 
+            "CRM APP"
+        );
+
+        // FOR ASSIGNEE EMAIL
+        sendNotification(
+            `Ticket Updated In CRM...` , 
+            `Your Ticket is Updated which is Assigned to You...! with tracking id ${updatedTicket._id} with priority ${updatedTicket.ticketPriority}`,
+            `${engineer.email}`, 
+            "CRM APP"
+        );
+
 
         res.status(200).send(updatedTicket);
     

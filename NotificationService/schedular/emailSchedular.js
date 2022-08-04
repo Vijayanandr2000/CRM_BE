@@ -2,13 +2,13 @@ const cron = require('node-cron');
 const Notification = require('../model/notification.model');
 const transporter = require('../notification/notificationService');
 
-cron.schedule('* */5 * * * *', async() => {
+cron.schedule('* */2 * * * *', async() => {
     try {
         const notifications = await Notification.find({ 
             status: false,
         })
-    
-        notifications.forEach((notification) => {
+    console.log('notifications', notifications)
+        notifications.forEach((notification, i) => {
             let mailObj = {
                 from : 'noreply@gmail.com',
                 to : notification.recepientEmail,
@@ -23,7 +23,7 @@ cron.schedule('* */5 * * * *', async() => {
                     notification.status = true;
     
                     await notification.save()
-                    console.log("email sent successfully");
+                    console.log("email sent successfully", i);
                 }
             })
     
