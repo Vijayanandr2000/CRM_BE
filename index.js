@@ -39,6 +39,6 @@ require('./router/auth.route')(app)
 require('./router/user.route')(app)
 require('./router/ticket.route')(app)
 
-app.listen(PORT, () => {
+module.exports = app.listen(PORT, () => {
     console.log(`Server started at port ${PORT}`);
 })
