@@ -14,7 +14,7 @@ app.use(cors());
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 // mongoose.connect("mongodb+srv://flash:Superman123@cluster0.4hzwm7j.mongodb.net/test");
-mongoose.connect(dbConfig.DB_URL);
+mongoose.connect("mongodb+srv://vijayanandr2000:5JRJwqnHgAiwf9tQ@cluster0.m5o5hig.mongodb.net/?retryWrites=true&w=majority");
 const db = mongoose.connection;
 db.on("error", () => {
     console.log("Error while connecting to MongoDB");
